@@ -17,4 +17,20 @@ public class RazorController : Controller
     {
         return View();
     }
+
+    public IActionResult Replace()
+    {
+        return View();
+    }
+
+    public IActionResult Suppress()
+    {
+        return View();
+    }
+
+    public IActionResult StatIf()
+    {
+        var b = _db.Books.Single(b => b.Isbn == "978-4-7981-8094-6");
+        return View(b);
+    }
 }
