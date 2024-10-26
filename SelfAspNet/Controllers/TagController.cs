@@ -17,11 +17,27 @@ public class TagController : Controller
         _manager = manager;
     }
 
+    public IActionResult Anchor()
+    {
+        return View();
+    }
+
+    public IActionResult Path()
+    {
+        return View();
+    }
+
     public async Task<IActionResult> SelectGroup()
     {
         var articles = _db.Articles.Select(a => new { Url = a.Url, Title = a.Title, Category = a.Category });
         ViewBag.Opts = new SelectList(articles, "Url", "Title", null, "Category");
         return View(await _db.Articles.FindAsync(1));
+    }
+
+    public IActionResult Raw()
+    {
+        ViewBag.Message = "<h3>WINGSプロジェクト</h3><img src=\"https://wings.msn.to/image/wings.jpg\" alt=\"ロゴ\" />";
+        return View();
     }
 
 }

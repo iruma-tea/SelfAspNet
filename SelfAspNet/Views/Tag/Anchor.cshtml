@@ -1,0 +1,10 @@
+﻿@{
+    // ルートに引き渡すパラメータ群を準備
+    var param = new Dictionary<string, string>
+        {
+            {"id", "13"},
+            {"mode", "dark"}
+        };
+}
+
+<a asp-controller="Book" asp-action="Details" asp-all-route-data="param" asp-fragment="details" asp-protocol="https">詳細</a>
