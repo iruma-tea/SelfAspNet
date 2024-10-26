@@ -10,7 +10,8 @@
 <div>
     <h4>Book</h4>
     <hr />
-    <dl class="row">
+    @Html.DisplayForModel()
+    @* <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Isbn)
         </dt>
@@ -47,7 +48,7 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Sample)
         </dd>
-    </dl>
+    </dl> *@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
