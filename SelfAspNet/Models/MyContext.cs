@@ -8,5 +8,6 @@ public class MyContext : DbContext
     public MyContext(DbContextOptions<MyContext> options) : base(options) { }
 
     public DbSet<Book> Books { get; set; }
+    public DbSet<Article> Articles { get; set; }
 
 }

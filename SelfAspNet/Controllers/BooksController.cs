@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -77,6 +78,9 @@ namespace SelfAspNet.Controllers
             {
                 return NotFound();
             }
+
+            // var list = _context.Books.Select(b => new { Publisher = b.Publisher }).Distinct();
+            // ViewBag.Opts = new SelectList(list, "Publisher", "Publisher");
             return View(book);
         }
 
