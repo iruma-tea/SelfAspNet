@@ -1,5 +1,7 @@
-﻿@using SelfAspNet.Helpers
+﻿@* @using SelfAspNet.Helpers *@
 @{
     var msg = "WINGSプロジェクトは、ライター山田祥寛が代表を務める執筆コミュニティです。";
 }
-@StringHelpers.Truncate(msg, 10, "～")
+@* @StringHelpers.Truncate(msg, 10, "～") *@
+@Html.Truncate(msg, 10, "～")
+@Html.Cover("978-4-8156-1948-0", new {title = "React実践入門"})

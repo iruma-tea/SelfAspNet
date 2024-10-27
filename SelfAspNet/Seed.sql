@@ -2,7 +2,7 @@ DELETE FROM Books;
 
 INSERT INTO Books(Isbn, Title, Price, Publisher, Published, Sample) VALUES('978-4-7981-8094-6', '独習Java', 3960, '翔泳社', '2024-02-15', 1);
 INSERT INTO Books(Isbn, Title, Price, Publisher, Published, Sample) VALUES('978-4-7981-7613-0', 'Androidアプリ開発の教科書', 3135, '翔泳社', '2023-01-24', 1);
-INSERT INTO Books(Isbn, Title, Price, Publisher, Published, Sample) VALUES('978-4-297-13288-3', 'これからはじめるReact実践入門', 4400, 'SBクリエイティブ', '2023-09-28', 1);
+INSERT INTO Books(Isbn, Title, Price, Publisher, Published, Sample) VALUES('978-4-8156-1948-0', 'これからはじめるReact実践入門', 4400, 'SBクリエイティブ', '2023-09-28', 1);
 INSERT INTO Books(Isbn, Title, Price, Publisher, Published, Sample) VALUES('978-4-296-07070-1', '作って学べるHTML＋JavaScriptの基本', 2420, '日経BP', '2023-07-06', 0);
 INSERT INTO Books(Isbn, Title, Price, Publisher, Published, Sample) VALUES('978-4-297-13685-7', 'Nuxt 3 フロントエンド開発の教科書', 3520, '技術評論社', '2023-09-22', 0);
 INSERT INTO Books(Isbn, Title, Price, Publisher, Published, Sample) VALUES('978-4-297-13288-0', 'JavaScript本格入門', 3520, '技術評論社', '2023-02-13', 1);
