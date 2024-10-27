@@ -1,4 +1,7 @@
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.EntityFrameworkCore;
+using SelfAspNet.Lib;
 using SelfAspNet.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +12,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<MyContext>(options => options.UseSqlite(
     builder.Configuration.GetConnectionString("MyContext")
 ));
+
+builder.Services.AddSingleton<ITagHelperInitializer<ScriptTagHelper>, ScriptTagHelperInitializer>();
 
 var app = builder.Build();
 

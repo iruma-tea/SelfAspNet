@@ -40,4 +40,14 @@ public class TagController : Controller
         return View();
     }
 
+    public IActionResult Image()
+    {
+        return View();
+    }
+
+    public IActionResult Import()
+    {
+        return View();
+    }
+
 }
