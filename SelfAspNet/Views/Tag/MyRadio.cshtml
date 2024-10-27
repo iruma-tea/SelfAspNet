@@ -1,0 +1,3 @@
+﻿@model SelfAspNet.Models.Book
+
+@Html.RadioButtonListFor(model => model.Publisher, (IEnumerable<SelectListItem>)ViewBag.Pubs, new { @class = "form-check form-check-inline" })

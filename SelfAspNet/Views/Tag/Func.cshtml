@@ -1,0 +1,13 @@
+﻿@{
+    var msg = "WINGSプロジェクトは、ライター山田祥寛が代表を務める執筆コミュニティです。";
+}
+
+@functions {
+    public static string Truncate(string text, int length = 15, string omission = "...")
+    {
+        if (text.Length <= length) { return text; }
+        return text.Substring(0, length - 1) + omission;
+    }
+}
+
+@Truncate(msg, 10, "～")

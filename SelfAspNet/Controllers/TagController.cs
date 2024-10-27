@@ -62,4 +62,17 @@ public class TagController : Controller
         return View();
     }
 
+    public async Task<IActionResult> MyRadio(int? id = 1)
+    {
+        // 重複なしの出版社名を取得
+        ViewBag.Pubs = _db.Books.Select(b => new SelectListItem { Value = b.Publisher, Text = b.Publisher }).Distinct();
+        // 引数idに合致する書籍情報を取得
+        return View(await _db.Books.FindAsync(id));
+    }
+
+    public IActionResult Func()
+    {
+        return View();
+    }
+
 }
