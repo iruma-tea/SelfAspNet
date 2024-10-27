@@ -50,4 +50,16 @@ public class TagController : Controller
         return View();
     }
 
+    public IActionResult Cache(int num1, int num2)
+    {
+        ViewBag.Num1 = num1;
+        ViewBag.Num2 = num2;
+        return View();
+    }
+
+    public IActionResult Custom()
+    {
+        return View();
+    }
+
 }
