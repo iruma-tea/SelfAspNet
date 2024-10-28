@@ -2,6 +2,7 @@ using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor.TagHelpers;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using SelfAspNet.Helpers;
 using SelfAspNet.Models;
 
 namespace SelfAspNet.Controllers;
@@ -94,6 +95,12 @@ public class TagController : Controller
     public async Task<IActionResult> For(int id = 1)
     {
         return View(await _db.Books.FindAsync(id));
+    }
+
+    public IActionResult Index()
+    {
+        _manager.Components.Add(new MetaTagHelperComponent(_db));
+        return View();
     }
 
 }

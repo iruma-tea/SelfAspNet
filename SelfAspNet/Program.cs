@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.EntityFrameworkCore;
+using SelfAspNet.Helpers;
 using SelfAspNet.Lib;
 using SelfAspNet.Models;
 
@@ -14,6 +16,7 @@ builder.Services.AddDbContext<MyContext>(options => options.UseSqlite(
 ));
 
 builder.Services.AddSingleton<ITagHelperInitializer<ScriptTagHelper>, ScriptTagHelperInitializer>();
+builder.Services.AddTransient<ITagHelperComponent, MetaTagHelperComponent>();
 
 var app = builder.Build();
 
