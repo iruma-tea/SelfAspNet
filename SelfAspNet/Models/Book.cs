@@ -24,4 +24,5 @@ public class Book
     public bool Sample { get; set; }
 
     public ICollection<Review> Reviews { get; } = new List<Review>();
+    public ICollection<Author> Authors { get; } = new List<Author>();
 }
