@@ -86,4 +86,14 @@ public class TagController : Controller
         return View(await _db.Books.FindAsync(id));
     }
 
+    public IActionResult Highlight()
+    {
+        return View();
+    }
+
+    public async Task<IActionResult> For(int id = 1)
+    {
+        return View(await _db.Books.FindAsync(id));
+    }
+
 }
