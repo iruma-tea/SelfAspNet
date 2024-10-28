@@ -4,7 +4,10 @@
     ViewData["Title"] = "List";
 }
 
-<table class="table">
+<vc:list price="3000" />
+@* @await Component.InvokeAsync("List", new {price = 3000}) *@
+
+@* <table class="table">
     <thead>
         <tr>
             <th>ISBNコード</th>
@@ -29,4 +32,4 @@
             </tr>
         }
     </tbody>
-</table>
+</table> *@

@@ -1,0 +1,12 @@
+﻿@model IEnumerable<SelfAspNet.Models.Book>
+
+@{
+    Func<dynamic, object> bookItem = @<li><a href="https://wings.msn.to/index.php/-/A-03/@item.Isbn/">@item.Title</a></li>;
+}
+
+<ul>
+    @foreach (var b in Model)
+    {
+        @bookItem(b)
+    }
+</ul>

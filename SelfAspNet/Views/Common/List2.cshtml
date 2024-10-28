@@ -1,0 +1,5 @@
+﻿@model IEnumerable<SelfAspNet.Models.Book>
+
+@Html.BookList(Model,
+    @<a href="https://wings.msn.to/index.php/-/A-03/@item.Isbn/">@item.Title</a>
+)
