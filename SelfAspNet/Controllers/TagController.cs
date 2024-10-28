@@ -75,4 +75,15 @@ public class TagController : Controller
         return View();
     }
 
+    public IActionResult Cover()
+    {
+        ViewBag.Isbn = "978-4-7981-7556-0";
+        return View();
+    }
+
+    public async Task<IActionResult> Link(int id = 1)
+    {
+        return View(await _db.Books.FindAsync(id));
+    }
+
 }
