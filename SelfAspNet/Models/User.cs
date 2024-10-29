@@ -25,5 +25,6 @@ public class User
     public bool NeedNews { get; set; }
 
     public Author? Author { get; set; }
+    // public virtual Author? Author { get; set; }
 
 }

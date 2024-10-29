@@ -14,7 +14,7 @@ public class Author
     public int UserId { get; set; }
 
     public User User { get; set; } = null!;
-
     public ICollection<Book> Books { get; } = new List<Book>();
-
+    // public virtual User User { get; set; } = null!;
+    // public virtual ICollection<Book> Books { get; } = new List<Book>();
 }

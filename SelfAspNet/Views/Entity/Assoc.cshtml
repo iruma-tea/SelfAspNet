@@ -1,0 +1,23 @@
+﻿@model SelfAspNet.Models.Book
+@* @inject SelfAspNet.Models.MyContext _db *@
+
+<h3>@Model.Title</h3>
+
+<ul>
+    <li>著者：
+        @foreach(var author in Model.Authors)
+        {
+            @* await _db.Entry(author).Reference(a => a.User).LoadAsync();  *@
+            @: @author.PenName ( @author.User.Name ) /
+        }
+    </li>
+    <li>価格：@Model.Price 円</li>
+    <li>出版社：@Model.Publisher</li>
+</ul>
+<hr />
+<ol>
+    @foreach(var rev in Model.Reviews)
+    {
+        <li>@rev.Body (@rev.Name)</li>
+    }
+</ol>

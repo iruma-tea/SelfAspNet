@@ -11,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// builder.Services.AddDbContext<MyContext>(options => options.UseLazyLoadingProxies().UseSqlite(
 builder.Services.AddDbContext<MyContext>(options => options.UseSqlite(
     builder.Configuration.GetConnectionString("MyContext")
 ));

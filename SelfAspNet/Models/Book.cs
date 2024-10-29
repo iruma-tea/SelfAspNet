@@ -25,4 +25,7 @@ public class Book
 
     public ICollection<Review> Reviews { get; } = new List<Review>();
     public ICollection<Author> Authors { get; } = new List<Author>();
+
+    // public virtual ICollection<Review> Reviews { get; } = new List<Review>();
+    // public virtual ICollection<Author> Authors { get; } = new List<Author>();
 }

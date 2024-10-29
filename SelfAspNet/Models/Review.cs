@@ -15,4 +15,5 @@ public class Review
     [Display(Name = "書籍")]
     public int BookId { get; set; }
     public Book Book { get; set; } = null!;
+    // public virtual Book Book { get; set; } = null!;
 }
