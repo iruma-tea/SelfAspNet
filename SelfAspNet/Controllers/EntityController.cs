@@ -16,8 +16,8 @@ public class EntityController : Controller
 
     public async Task<IActionResult> Assoc(int id = 1)
     {
-        // var b = await _db.Books.Include(b => b.Reviews).Include(b => b.Authors).ThenInclude(a => a.User).SingleAsync(b => b.Id == id);
-        var b = await _db.Books.SingleAsync(b => b.Id == id);
+        var b = await _db.Books.Include(b => b.Reviews).Include(b => b.Authors).ThenInclude(a => a.User).SingleAsync(b => b.Id == id);
+        // var b = await _db.Books.SingleAsync(b => b.Id == id);
         // await _db.Entry(b).Collection(b => b.Reviews).LoadAsync();
         // await _db.Entry(b).Collection(b => b.Authors).LoadAsync();
         return View(b);
