@@ -1,6 +1,7 @@
 using System;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SelfAspNet.Models;
 
@@ -84,5 +85,94 @@ public class LinqController : Controller
     {
         var result = await _db.Books.AnyAsync(b => b.Price >= 4000);
         return Content(result.ToString());
+    }
+
+    public IActionResult Filter(string keyword, bool? released)
+    {
+        var bs = _db.Books.Select(b => b);
+        // [キーワード]欄が空でない場合、その内容で部分一致検索
+        if (!string.IsNullOrEmpty(keyword))
+        {
+            bs = bs.Where(b => b.Title.Contains(keyword));
+        }
+        // [刊行済み]がチェック状態の場合、今日以前の書籍で絞込
+        if (released.HasValue && released.Value)
+        {
+            bs = bs.Where(b => b.Published <= DateTime.Now);
+        }
+        return View(bs);
+    }
+
+    public IActionResult Order()
+    {
+        var bs = _db.Books.OrderByDescending(b => b.Price).ThenBy(b => b.Published);
+        return View("List", bs);
+    }
+
+    public IActionResult SortGrid(string sort)
+    {
+        // ソートキー／順序を識別するためのキー文字列を設定
+        ViewBag.Isbn = sort == "Isbn" ? "dIsbn" : "Isbn";
+        ViewBag.Title = string.IsNullOrEmpty(sort) ? "dTitle" : "";
+        ViewBag.Price = sort == "Price" ? "dPrice" : "Price";
+        ViewBag.Publisher = sort == "Publisher" ? "dPublisher" : "Publisher";
+        ViewBag.Published = sort == "Published" ? "dPublished" : "Published";
+        ViewBag.Sample = sort == "Sample" ? "dSample" : "Sample";
+
+        var bs = _db.Books.Select(b => b);
+        // 渡されたキー文字列に基づいて、ソート式を選択
+        bs = sort switch
+        {
+            "Isbn" => bs.OrderBy(b => b.Isbn),
+            "Title" => bs.OrderBy(b => b.Title),
+            "Price" => bs.OrderBy(b => b.Price),
+            "Publisher" => bs.OrderBy(b => b.Publisher),
+            "Published" => bs.OrderBy(b => b.Published),
+            "Sample" => bs.OrderBy(b => b.Sample),
+            "dIsbn" => bs.OrderByDescending(b => b.Isbn),
+            "dTitle" => bs.OrderByDescending(b => b.Title),
+            "dPrice" => bs.OrderByDescending(b => b.Price),
+            "dPublisher" => bs.OrderByDescending(b => b.Publisher),
+            "dPublished" => bs.OrderByDescending(b => b.Published),
+            "dSample" => bs.OrderByDescending(b => b.Sample),
+            _ => bs.OrderBy(b => b.Title)
+        };
+        return View(bs);
+    }
+
+    public IActionResult Select()
+    {
+        var bs = _db.Books.OrderByDescending(b => b.Published).Select(b => new SummaryBookView(
+            b.Title.Substring(0, 7) + "...",
+            (int)(b.Price * 0.9),
+            b.Published <= DateTime.Now ? "発売中" : "発売予定"
+        ));
+
+        return View(bs);
+    }
+
+
+    public async Task<IActionResult> ViewModel(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        var book = await _db.Books.FindAsync(id);
+        if (book == null)
+        {
+            return NotFound();
+        }
+
+        var list = _db.Books.Select(b => new { Publisher = b.Publisher }).Distinct();
+
+        return View(new SelectView
+        {
+            Book = book,
+            Publishers = new SelectList(
+                list, "Publisher", "Publisher", book.Publisher
+            )
+        });
     }
 }

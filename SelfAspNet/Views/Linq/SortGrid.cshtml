@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Book>
+
+<table class="tabel">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="SortGrid" asp-route-sort="@ViewBag.Isbn">
+                    @Html.DisplayNameFor(model => model.Isbn)</a>
+            </th>
+            <th>
+                <a asp-action="SortGrid" asp-route-sort="@ViewBag.Title">
+                    @Html.DisplayNameFor(model => model.Title)</a>
+            </th>
+            <th>
+                <a asp-action="SortGrid" asp-route-sort="@ViewBag.Price">
+                    @Html.DisplayNameFor(model => model.Price)</a>
+            </th>
+            <th>
+                <a asp-action="SortGrid" asp-route-sort="@ViewBag.Publisher">
+                    @Html.DisplayNameFor(model => model.Publisher)</a>
+            </th>
+            <th>
+                <a asp-action="SortGrid" asp-route-sort="@ViewBag.Published">
+                    @Html.DisplayNameFor(model => model.Published)</a>
+            </th>
+            <th>
+                <a asp-action="SortGrid" asp-route-sort="@ViewBag.Sample">
+                    @Html.DisplayNameFor(model => model.Sample)</a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Isbn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Publisher)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Published)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sample)
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

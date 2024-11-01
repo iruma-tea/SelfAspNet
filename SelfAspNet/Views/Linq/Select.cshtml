@@ -1,0 +1,28 @@
+﻿@model IEnumerable<SummaryBookView>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ShortTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiscountPrice)
+        </th>
+        <tr>
+            @Html.DisplayNameFor(model => model.Released)
+        </tr>
+    </tr>
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShortTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiscountPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Released)
+            </td>
+        </tr>
+    }
+</table>
