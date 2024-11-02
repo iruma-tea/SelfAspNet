@@ -15,6 +15,7 @@ public class User
     public string? Email { get; set; }
 
     [NotMapped]
+    [Compare(nameof(Email), ErrorMessage = "{0}が{1}と一致しません。")]
     [Display(Name = "メールアドレス(確認)")]
     public string? EmailConfirmed { get; set; }
 

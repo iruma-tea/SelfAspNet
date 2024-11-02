@@ -53,7 +53,7 @@ namespace SelfAspNet.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Email,Birth,NeedNews")] User user)
+        public async Task<IActionResult> Create([Bind("Id,Name,Email,EmailConfirmed,Birth,NeedNews")] User user)
         {
             if (ModelState.IsValid)
             {
