@@ -293,7 +293,7 @@ public class LinqController : Controller
         _db.Books.Add(new Book
         {
             Isbn = "978-4-7981-8094-6",
-            Title = null,
+            Title = null!,
             Price = 3960,
             Publisher = "翔泳社",
             Published = new DateTime(2024, 02, 15),
