@@ -1,0 +1,8 @@
+﻿@model IEnumerable<HavingBook>
+
+<ul>
+    @foreach(var group in Model)
+    {
+        <li>@group.Publisher: @group.PriceAverage 円</li>
+    }
+</ul>

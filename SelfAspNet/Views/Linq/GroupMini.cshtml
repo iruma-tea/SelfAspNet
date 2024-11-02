@@ -1,0 +1,14 @@
+﻿@model IEnumerable<IGrouping<string, MiniBook>>
+
+@foreach (var group in Model)
+{
+    <dt>@group.Key</dt>
+    <dd>
+        <ul>
+            @foreach (var b in group)
+            {
+                <li>@b.Title (@b.Price 円)</li>
+            }
+        </ul>
+    </dd>
+}

@@ -151,6 +151,57 @@ public class LinqController : Controller
         return View(bs);
     }
 
+    public IActionResult Skip()
+    {
+        var bs = _db.Books.OrderBy(b => b.Published).Skip(2).Take(3);
+        return View("List", bs);
+    }
+
+    public IActionResult Page(int id = 1)
+    {
+        var pageSize = 3;
+        var pageNum = id - 1;
+        var bs = _db.Books.OrderBy(b => b.Published).Skip(pageSize * pageNum).Take(pageSize);
+        return View("List", bs);
+    }
+
+    public async Task<IActionResult> First()
+    {
+        var bs = await _db.Books.OrderBy(b => b.Published).FirstAsync();
+        return View("Details", bs);
+    }
+
+    public IActionResult Group()
+    {
+        var bs = _db.Books.GroupBy(b => b.Publisher);
+        return View(bs);
+    }
+
+    public IActionResult GroupMini()
+    {
+        var bs = _db.Books.GroupBy(
+            b => b.Publisher,
+            b => new MiniBook(b.Title, b.Price)
+        );
+        return View(bs);
+    }
+
+    public IActionResult GroupMulti()
+    {
+        var bs = _db.Books.GroupBy(b => new BookGroup(
+            b.Publisher,
+            b.Published.Year
+        ));
+        return View(bs);
+    }
+
+    public IActionResult Having()
+    {
+        var bs = _db.Books.GroupBy(b => b.Publisher)
+            .Where(group => group.Average(b => b.Price) >= 3000)
+            .Select(group => new HavingBook(group.Key, (int)group.Average(b => b.Price)));
+        return View(bs);
+    }
 
     public async Task<IActionResult> ViewModel(int? id)
     {
