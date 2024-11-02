@@ -334,6 +334,22 @@ public class LinqController : Controller
         }
     }
 
+    public async Task<IActionResult> AddUp()
+    {
+        _db.Articles.Add(new Article
+        {
+            Title = "Next.jsの新しい概念を学ぶ",
+            Url = "https://codezine.jp/article/corner/970",
+            Category = "JavaScript"
+        });
+        foreach (var a in _db.Articles.Where(a => a.Category == "Rails"))
+        {
+            a.Category = "Ruby on Rails";
+        }
+        await _db.SaveChangesAsync();
+        return Content("データを追加&更新しました。");
+    }
+
     public async Task<IActionResult> ViewModel(int? id)
     {
         if (id == null)

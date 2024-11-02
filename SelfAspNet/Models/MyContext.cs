@@ -14,4 +14,8 @@ public class MyContext : DbContext
     public DbSet<Article> Articles { get; set; } = default!;
     public DbSet<Meta> Metas { get; set; } = default!;
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.AddInterceptors(new TimestampInterceptor());
+    }
 }
