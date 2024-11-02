@@ -254,6 +254,86 @@ public class LinqController : Controller
         return Content("データを追加しました。");
     }
 
+    public async Task<IActionResult> Insert2()
+    {
+        var book = await _db.Books.FindAsync(1);
+        _db.Reviews.Add(new Review
+        {
+            Name = "木村裕二",
+            Body = "最近は、意外と書き方が変わっていて勉強になった。",
+            LastUpdated = new DateTime(2024, 06, 03),
+            Book = book!
+        });
+        await _db.SaveChangesAsync();
+
+        return Content("レビューを追加しました。");
+    }
+
+    public async Task<IActionResult> Delete()
+    {
+        var b = await _db.Books.FindAsync(1);
+        // var b = await _db.Books.Include(b => b.Reviews).SingleAsync(b => b.Id == 1);
+        _db.Books.Remove(b!);
+        await _db.SaveChangesAsync();
+        return Content("データを削除しました。");
+    }
+
+    public async Task<IActionResult> Transaction()
+    {
+        _db.Books.Add(new Book
+        {
+            Isbn = "978-4-297-13919-3",
+            Title = "3ステップで学ぶMySQL入門",
+            Price = 2860,
+            Publisher = "技術評論社",
+            Published = new DateTime(2024, 01, 25),
+            Sample = true
+        });
+
+        _db.Books.Add(new Book
+        {
+            Isbn = "978-4-7981-8094-6",
+            Title = null,
+            Price = 3960,
+            Publisher = "翔泳社",
+            Published = new DateTime(2024, 02, 15),
+            Sample = true
+        });
+        await _db.SaveChangesAsync();
+        return Content("データを追加しました。");
+    }
+
+    public async Task<IActionResult> Transaction2()
+    {
+        using (var tx = _db.Database.BeginTransaction())
+        {
+            try
+            {
+                _db.Books.Add(
+                    new Book
+                    {
+                        Isbn = "978-4-297-13919-3",
+                        Title = "3ステップで学ぶMySQL入門",
+                        Price = 2860,
+                        Publisher = "技術評論社",
+                        Published = new DateTime(2024, 01, 25),
+                        Sample = true
+                    }
+                );
+                await _db.SaveChangesAsync();
+                _db.Books.Where(b => b.Publisher == "翔泳社")
+                    .ExecuteUpdate(setters => setters.SetProperty(b => b.Price, b => (int)(b.Price * 0.8)));
+                tx.Commit();
+                return Content("データベース処理が正常終了しました。");
+            }
+            catch (Exception)
+            {
+                tx.Rollback();
+                return Content("データベース処理に失敗しました。");
+            }
+        }
+    }
+
     public async Task<IActionResult> ViewModel(int? id)
     {
         if (id == null)

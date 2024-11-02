@@ -13,6 +13,7 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="RowVersion" />
             <div class="form-group">
                 <label asp-for="Isbn" class="control-label"></label>
                 <input asp-for="Isbn" class="form-control" />
@@ -30,9 +31,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="Publisher" class="control-label"></label>
-                @* <input asp-for="Publisher" class="form-control" /> *@
-                @* <select asp-for="Publisher" class="form-control" asp-items="ViewBag.Opts"></select> *@
-                <select asp-for="Publisher" class="form-control" asp-items="Html.GetEnumSelectList<Publisher>()"></select>
+                <input asp-for="Publisher" class="form-control" />
+                @* <select asp-for="Publisher" class="form-control"
+                    asp-items="ViewBag.Opts"></select> *@
+                @* <select asp-for="Publisher" class="form-control"
+                    asp-items="Html.GetEnumSelectList<Publisher>()"></select> *@
                 <span asp-validation-for="Publisher" class="text-danger"></span>
             </div>
             <div class="form-group">

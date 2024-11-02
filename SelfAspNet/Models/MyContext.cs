@@ -7,11 +7,11 @@ public class MyContext : DbContext
 {
     public MyContext(DbContextOptions<MyContext> options) : base(options) { }
 
-    public DbSet<Book> Books { get; set; }
-    public DbSet<Review> Reviews { get; set; }
-    public DbSet<Author> Authors { get; set; }
-    public DbSet<User> Users { get; set; }
-    public DbSet<Article> Articles { get; set; }
-    public DbSet<Meta> Metas { get; set; }
+    public DbSet<Book> Books { get; set; } = default!;
+    public DbSet<Review> Reviews { get; set; } = default!;
+    public DbSet<Author> Authors { get; set; } = default!;
+    public DbSet<User> Users { get; set; } = default!;
+    public DbSet<Article> Articles { get; set; } = default!;
+    public DbSet<Meta> Metas { get; set; } = default!;
 
 }

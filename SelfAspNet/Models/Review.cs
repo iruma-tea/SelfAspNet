@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace SelfAspNet.Models;
 
@@ -13,7 +14,8 @@ public class Review
     [Display(Name = "更新日")]
     public DateTime LastUpdated { get; set; } = DateTime.Now;
     [Display(Name = "書籍")]
-    public int BookId { get; set; }
-    public Book Book { get; set; } = null!;
+    public int? BookId { get; set; }
+    [DeleteBehavior(DeleteBehavior.SetNull)]
+    public Book? Book { get; set; } = null!;
     // public virtual Book Book { get; set; } = null!;
 }

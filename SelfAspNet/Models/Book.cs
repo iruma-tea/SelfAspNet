@@ -23,6 +23,9 @@ public class Book
     [Display(Name = "配布サンプル")]
     public bool Sample { get; set; }
 
+    [Timestamp]
+    public byte[]? RowVersion { get; set; }
+
     public ICollection<Review> Reviews { get; } = new List<Review>();
     public ICollection<Author> Authors { get; } = new List<Author>();
 
