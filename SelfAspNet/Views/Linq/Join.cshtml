@@ -1,0 +1,8 @@
+﻿@model IEnumerable<SelfAspNet.Models.BookReviewView>
+
+<ul>
+    @foreach(var item in Model)
+    {
+        <li>@item.ReviewBody (@item.Title)</li>
+    }
+</ul>

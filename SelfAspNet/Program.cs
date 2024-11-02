@@ -21,6 +21,13 @@ builder.Services.AddTransient<ITagHelperComponent, MetaTagHelperComponent>();
 
 var app = builder.Build();
 
+// DB Initialize
+// using (var scope = app.Services.CreateScope())
+// {
+//     var provider = scope.ServiceProvider;
+//     Seed.Initialize(provider);
+// }
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

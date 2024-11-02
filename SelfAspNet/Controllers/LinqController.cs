@@ -203,6 +203,57 @@ public class LinqController : Controller
         return View(bs);
     }
 
+    public IActionResult HavingSort()
+    {
+        var bs = _db.Books
+            .GroupBy(b => b.Publisher)
+            .OrderBy(group => group.Average(b => b.Price))
+            .Select(group => new HavingBook(group.Key, (int)group.Average(b => b.Price)));
+        return View("Having", bs);
+    }
+
+    public IActionResult Join()
+    {
+        var rs = _db.Books
+            .Join(_db.Reviews, b => b.Id, rev => rev.BookId, (b, rev) => new BookReviewView(b.Title, rev.Body));
+        return View(rs);
+    }
+
+    public async Task<IActionResult> Update()
+    {
+        // foreach (var b in _db.Books.Where(b => b.Publisher == "翔泳社"))
+        // {
+        //     b.Price = (int)(b.Price * 0.8);
+        // }
+        // await _db.SaveChangesAsync();
+        await _db.Books.Where(b => b.Publisher == "翔泳社")
+            .ExecuteUpdateAsync(setters => setters.SetProperty(b => b.Price, b => (int)(b.Price * 0.8)));
+        return Content("更新しました。");
+    }
+
+    public async Task<IActionResult> Insert()
+    {
+        _db.Reviews.Add(
+            new Review
+            {
+                Name = "藤井友美",
+                Body = "しっかり勉強したい人向けの本です。最初に...",
+                LastUpdated = new DateTime(2024, 05, 17),
+                Book = new Book
+                {
+                    Isbn = "978-4-7981-6849-4",
+                    Title = "独習 PHP",
+                    Price = 3740,
+                    Publisher = "翔泳社",
+                    Published = new DateTime(2021, 06, 14),
+                    Sample = true
+                }
+            }
+        );
+        await _db.SaveChangesAsync();
+        return Content("データを追加しました。");
+    }
+
     public async Task<IActionResult> ViewModel(int? id)
     {
         if (id == null)
