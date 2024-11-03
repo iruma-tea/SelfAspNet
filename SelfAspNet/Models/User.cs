@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SelfAspNet.Models;
 
+[CustomValidation(typeof(User), nameof(ValidateEmailForNews))]
 public class User
 {
     public int Id { get; set; }
@@ -28,4 +29,13 @@ public class User
     public Author? Author { get; set; }
     // public virtual Author? Author { get; set; }
 
+    public static ValidationResult ValidateEmailForNews(User user)
+    {
+        if (user.NeedNews && string.IsNullOrEmpty(user.Email))
+        {
+            return new ValidationResult("ニュースを受け取るにはメールアドレスは必須です。");
+            // return new ValidationResult("ニュースを受け取るにはメールアドレスは必須です。", new[] { nameof(Email) });
+        }
+        return ValidationResult.Success!;
+    }
 }
