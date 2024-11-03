@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SelfAspNet.Models;
 
 [CustomValidation(typeof(User), nameof(ValidateEmailForNews))]
-public class User
+public class User : IValidatableObject
 {
     public int Id { get; set; }
 
@@ -37,5 +37,13 @@ public class User
             // return new ValidationResult("ニュースを受け取るにはメールアドレスは必須です。", new[] { nameof(Email) });
         }
         return ValidationResult.Success!;
+    }
+
+    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+    {
+        if (NeedNews && string.IsNullOrEmpty(Email))
+        {
+            yield return new ValidationResult("ニュースを受け取るにはメールアドレスは必須です。");
+        }
     }
 }
