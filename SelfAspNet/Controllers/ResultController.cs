@@ -1,7 +1,9 @@
 using System;
+using System.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Net.Http.Headers;
 using SelfAspNet.Models;
 
 namespace SelfAspNet.Controllers;
@@ -95,13 +97,29 @@ public class ResultController : Controller
         // 物理パスで指定する場合
         // var path = $"C:/data/images/img_{id}.png";
         // return PhysicalFile(path, "image/png", "sample.png");
-
         var path = $"/images/img_{id}.png";
-        return File(path, "image/png", "sample.png");
+        // return File(path, "image/png", "sample.png");
+        var fullpath = _host.WebRootPath + path;
+        return File(path, "image/png",
+            new DateTimeOffset(System.IO.File.GetLastWriteTime(fullpath)),
+            new EntityTagHeaderValue(ComputeSha256(fullpath)));
     }
 
     public IActionResult Risk(string path)
     {
         return PhysicalFile(path, "application/octet-stream");
+    }
+
+    private static string ComputeSha256(string path)
+    {
+        using var sha = SHA512.Create();
+        using var stream = new FileStream(path, FileMode.Open);
+        var bs = sha.ComputeHash(stream);
+        var result = new StringBuilder();
+        foreach (var b in bs)
+        {
+            result.Append(b.ToString("x2"));
+        }
+        return $"\"{result.ToString()}\"";
     }
 }
