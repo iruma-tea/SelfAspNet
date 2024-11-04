@@ -13,6 +13,7 @@ public class MyContext : DbContext
     public DbSet<User> Users { get; set; } = default!;
     public DbSet<Article> Articles { get; set; } = default!;
     public DbSet<Meta> Metas { get; set; } = default!;
+    public DbSet<Photo> Photos { get; set; } = default!;
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
