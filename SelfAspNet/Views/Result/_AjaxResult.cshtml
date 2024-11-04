@@ -1,0 +1,36 @@
+﻿@model IEnumerable<SelfAspNet.Models.Book>
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ISBNコード</th><th>書名</th><th>価格</th><th>出版社</th>
+      <th>刊行日</th><th>配布サンプル</th>
+    </tr>
+  </thead>
+  <tbody>
+  @foreach (var item in Model)
+  {
+    <tr>
+      <td>
+        @Html.DisplayFor(modelItem => item.Isbn)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => item.Title)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => item.Price)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => item.Publisher)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => item.Published)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => item.Sample)
+      </td>
+    </tr>
+  }
+  </tbody>
+</table>

@@ -1,0 +1,21 @@
+﻿<form id="myform" class="form-inline">
+    <label for="keyword" class="mr-2">キーワード：</label>
+    <input id="keyword" name="keyword" type="text" class="form-control" />
+    <label for="released" class="control-check-label">刊行済：</label>
+    <input id="released" name="released" type="checkbox" value="true" class="form-check-input" />
+    <input id="search" type="button" value="検索" class="btn btn-info" />
+</form>
+<hr />
+<div id="result"></div>
+<script>
+    const btn = document.querySelector("#search");
+    const result = document.querySelector("#result");
+
+    btn.addEventListener('click', function() {
+        fetch('/Result/AjaxSearch', {
+            method: 'POST',
+            body: new FormData(document.querySelector("#myform"))
+        }).then(res => res.text())
+        .then(data => result.innerHTML = data);
+    }, false);
+</script>
