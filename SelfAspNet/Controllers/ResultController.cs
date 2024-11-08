@@ -122,4 +122,14 @@ public class ResultController : Controller
         }
         return $"\"{result.ToString()}\"";
     }
+
+    public async Task<IActionResult> Photo(int id = 1)
+    {
+        var p = await _db.Photos.FindAsync(id);
+        if (p == null)
+        {
+            return NotFound();
+        }
+        return File(p.Content, p.ContentType, p.Name);
+    }
 }
