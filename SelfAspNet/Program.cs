@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using SelfAspNet.Helpers;
 using SelfAspNet.Lib;
@@ -18,6 +19,11 @@ builder.Services.AddDbContext<MyContext>(options => options.UseSqlite(
 
 builder.Services.AddSingleton<ITagHelperInitializer<ScriptTagHelper>, ScriptTagHelperInitializer>();
 builder.Services.AddTransient<ITagHelperComponent, MetaTagHelperComponent>();
+
+builder.Services.Configure<KestrelServerOptions>(options =>
+{
+    options.AllowSynchronousIO = true;
+});
 
 var app = builder.Build();
 

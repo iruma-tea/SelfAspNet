@@ -1,6 +1,11 @@
 using System;
+using System.Net.Mime;
 using System.Security.Cryptography;
 using System.Text;
+using iText.Kernel.Colors;
+using iText.Kernel.Font;
+using iText.Kernel.Pdf;
+using iText.Layout.Element;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Net.Http.Headers;
@@ -132,4 +137,55 @@ public class ResultController : Controller
         }
         return File(p.Content, p.ContentType, p.Name);
     }
+
+    public IActionResult Pdf()
+    {
+        // データを一時的に保存するためのメモリ領域を準備
+        var stream = new MemoryStream();
+        // ドキュメントを生成
+        var doc = new iText.Layout.Document(
+            new iText.Kernel.Pdf.PdfDocument(
+                new PdfWriter(stream)
+            )
+        );
+
+        // テンプレートを使う場合
+        // var pdf = new PdfDocument(
+        // new PdfReader("C:/data/template.pdf"),
+        // new PdfWriter(stream)
+        // );
+
+        // フォントを準備
+        var font = PdfFontFactory.CreateFont("HeiseiKakuGo-W5", "UniJIS-UCS2-H");
+        doc.SetFont(font);
+
+        // 文字列の出力
+        doc.Add(
+            new Paragraph("こんにちは、").Add(new Text("世界！").SetFontSize(20).SetFontColor(new DeviceRgb(255, 0, 0)))
+        );
+        doc.Close();
+        return File(stream.ToArray(), MediaTypeNames.Application.Pdf);
+    }
+
+    // バイナリデータを直接応答に送出する場合
+    // public IActionResult Pdf()
+    // {
+    //     Response.ContentType = MediaTypeNames.Application.Pdf;
+    //     var doc = new iText.Layout.Document(
+    //         new PdfDocument(
+    //         new PdfWriter(Response.Body)
+    //         )
+    //     );
+    //     var font = PdfFontFactory.CreateFont("HeiseiKakuGo-W5", "UniJIS-UCS2-H");
+    //     doc.SetFont(font);
+    //     doc.Add(
+    //       new Paragraph("こんにちは、")
+    //         .Add(new Text("世界！")
+    //           .SetFontSize(20)
+    //           .SetFontColor(new DeviceRgb(255, 0, 0))
+    //         ));
+    //     doc.Close();
+    //     return Empty;
+    // }
+
 }
