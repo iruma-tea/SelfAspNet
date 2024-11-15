@@ -1,0 +1,25 @@
+﻿@model SelfAspNet.Models.Book
+
+<form asp-action="CreateMulti">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <input type="submit" value="Create" class="btn btn-primary" />
+    <table class="table">
+        <tr>
+            <th>ISBNコード</th>
+            <th>書名</th>
+            <th>価格</th>
+            <th>出版社</th>
+            <th>刊行日</th>
+        </tr>
+        @for (var i = 0; i < 5; i++)
+        {
+            <tr>
+                <td>@Html.TextBox($"list[{i}].Isbn", "", new { @class = "form-control"})</td>
+                <td>@Html.TextBox($"list[{i}].Title", "", new { @class = "form-control" })</td>
+                <td>@Html.TextBox($"list[{i}].Price", "", new { @class = "form-control" })</td>
+                <td>@Html.TextBox($"list[{i}].Publisher", "", new { @class = "form-control" })</td>
+                <td>@Html.TextBox($"list[{i}].Published", "", new { @class = "form-control" })</td>
+            </tr>
+        }
+    </table>
+</form>

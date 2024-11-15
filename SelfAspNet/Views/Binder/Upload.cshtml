@@ -1,0 +1,6 @@
+﻿<form enctype="multipart/form-data" asp-action="Upload">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="file" name="upFiles" id="upFiles" multiple />
+    <button type="submit" class="btn btn-primary">アップロード</button>
+    <p class="text-success">@ViewBag.Message</p>
+</form>

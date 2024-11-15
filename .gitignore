@@ -2,3 +2,6 @@
 /**/obj/
 /**/.vscode/
 *.log
+# 画像のアップロードディレクトリ
+/**/Data/*
+!/**/Data/.gitkeep

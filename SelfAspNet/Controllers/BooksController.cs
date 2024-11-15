@@ -130,6 +130,43 @@ namespace SelfAspNet.Controllers
             return View(book);
         }
 
+        // TryUpdateModelAsyncでの書換
+        // [HttpPost]
+        // [ValidateAntiForgeryToken]
+        // public async Task<IActionResult> Edit(int id)
+        // {
+        //     var book = await _context.Books.FirstOrDefaultAsync(m => m.Id == id);
+        //     if (book == null)
+        //     {
+        //         return NotFound();
+        //     }
+        //     if (await TryUpdateModelAsync(book, "", b => b.Isbn, b => b.Title, b => b.Price, b => b.Publisher, b => b.Published, b => b.Sample))
+        //     {
+        //         if (ModelState.IsValid)
+        //         {
+        //             try
+        //             {
+        //                 _context.Update(book);
+        //                 await _context.SaveChangesAsync();
+        //             }
+        //             catch (DbUpdateConcurrencyException)
+        //             {
+        //                 if (!BookExists(book.Id))
+        //                 {
+        //                     return NotFound();
+        //                 }
+        //                 else
+        //                 {
+        //                     ModelState.AddModelError(string.Empty, "競合が検出されました。");
+        //                 }
+        //             }
+        //             return RedirectToAction(nameof(Index));
+        //         }
+        //         return View(book);
+        //     }
+        //     return View(book);
+        // }
+
         // GET: Books/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

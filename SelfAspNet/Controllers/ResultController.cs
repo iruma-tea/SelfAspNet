@@ -9,6 +9,7 @@ using iText.Layout.Element;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Net.Http.Headers;
+using SelfAspNet.Lib;
 using SelfAspNet.Models;
 
 namespace SelfAspNet.Controllers;
@@ -187,5 +188,10 @@ public class ResultController : Controller
     //     doc.Close();
     //     return Empty;
     // }
+
+    public async Task<IActionResult> Output()
+    {
+        return new CsvResult(await _db.Books.ToListAsync());
+    }
 
 }
