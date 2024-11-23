@@ -10,7 +10,11 @@ using SelfAspNet.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options =>
+{
+    options.ValueProviderFactories.Add(new HttpCookieValueProviderFactory());
+    // options.ModelBinderProviders.Insert(0, new DateModelBinderProvider());
+});
 
 // builder.Services.AddDbContext<MyContext>(options => options.UseLazyLoadingProxies().UseSqlite(
 builder.Services.AddDbContext<MyContext>(options => options.UseSqlite(
@@ -24,6 +28,11 @@ builder.Services.Configure<KestrelServerOptions>(options =>
 {
     options.AllowSynchronousIO = true;
 });
+
+// builder.WebHost.ConfigureKestrel(opts =>
+// {
+//     opts.Limits.MaxRequestBodySize = 1024 * 1024 * 55;
+// });
 
 var app = builder.Build();
 

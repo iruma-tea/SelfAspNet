@@ -1,5 +1,6 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
+using SelfAspNet.Lib;
 using SelfAspNet.Models;
 
 namespace SelfAspNet.Controllers;
@@ -97,6 +98,7 @@ public class BinderController : Controller
         }
         // アップロードに成功したファイル数
         var success = 0;
+        var ps = _db.Photos;
 
         foreach (var file in upFiles)
         {
@@ -119,10 +121,34 @@ public class BinderController : Controller
             // FileStream経由でアップロードファイルを複製
             using var stream = new FileStream(path, FileMode.Create);
             await file.CopyToAsync(stream);
+
+            // データベースに保存する場合
+            using var memory = new MemoryStream();
+            await file.CopyToAsync(memory);
+            ps.Add(new Photo
+            {
+                Name = Path.GetFileName(file.FileName),
+                ContentType = file.ContentType,
+                Content = memory.ToArray()
+            });
             success++;
         }
+        await _db.SaveChangesAsync();
         // 成功メッセージを生成&フォームを再描画
         ViewBag.Message = $"{success}個のファイルをアップロードしました。";
         return View();
+    }
+
+    public IActionResult Custom()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public IActionResult Custom(
+        [ModelBinder(typeof(DateModelBinder))]
+        DateTime current)
+    {
+        return Content($"入力値：{current.ToShortDateString()}");
     }
 }
