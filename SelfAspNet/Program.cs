@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
+using SelfAspNet.Filters;
 using SelfAspNet.Helpers;
 using SelfAspNet.Lib;
 using SelfAspNet.Models;
@@ -14,6 +15,7 @@ builder.Services.AddControllersWithViews(options =>
 {
     options.ValueProviderFactories.Add(new HttpCookieValueProviderFactory());
     // options.ModelBinderProviders.Insert(0, new DateModelBinderProvider());
+    // options.Filters.Add<MyLogAttribute>(); // MyLogAttributeのフィルターをアプリ単位に指定
 });
 
 // builder.Services.AddDbContext<MyContext>(options => options.UseLazyLoadingProxies().UseSqlite(
