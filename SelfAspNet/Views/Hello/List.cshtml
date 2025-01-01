@@ -1,0 +1,33 @@
+﻿<!-- モデルの型を宣言  -->
+@model IEnumerable<SelfAspNet.Models.Book>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ISBNコード</th>
+            <th>書名</th>
+            <th>価格</th>
+            <th>出版社</th>
+            <th>刊行日</th>
+            <th>配布サンプル</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- リストの内容を繰り返し表示 -->
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Isbn</td>
+                <td>@item.Title</td>
+                <td>@item.Price</td>
+                <td>@item.Publisher</td>
+                <td>@item.Published.ToString("D")</td>
+                <td>@item.Sample</td>
+            </tr>
+        }
+    </tbody>
+</table>

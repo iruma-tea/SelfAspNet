@@ -1,0 +1,11 @@
+﻿@model IEnumerable<SelfAspNet.Models.Book>
+@{
+    ViewData["Title"] = "理解度チェック";
+}
+
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>@item.Title (@item.Price 円)</li>
+    }
+</ul>
