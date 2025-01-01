@@ -1,0 +1,36 @@
+# 依存関係のフォルダ
+node_modules/
+bin/
+obj/
+
+# ASP.NET特有のディレクトリ
+.vscode/
+.vs/
+.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# ログファイル
+*.log
+
+# パッケージ関連
+*.nupkg
+*.snupkg
+
+# ビルドアウトプット
+build/
+
+# アセットと静的ファイル
+wwwroot/
+
+# 環境構成ファイル
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# その他
+*.DS_Store
+Thumbs.db
