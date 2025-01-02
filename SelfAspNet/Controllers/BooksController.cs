@@ -77,6 +77,11 @@ namespace SelfAspNet.Controllers
             {
                 return NotFound();
             }
+
+            // テーブルの重複のない出版社名を取得
+            var list = _context.Books.Select(b => new { Publisher = b.Publisher }).Distinct();
+            // 選択オプションのリストを準備
+            ViewBag.Opts = new SelectList(list, "Publisher", "Publisher");
             return View(book);
         }
 
