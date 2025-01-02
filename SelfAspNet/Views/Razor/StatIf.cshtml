@@ -1,0 +1,14 @@
+﻿@model SelfAspNet.Models.Book
+
+@if (Model.Price >= 5000)
+{
+    <p>[High]</p>
+}
+else if (Model.Price >= 2500)
+{
+    <p>[Middle]</p>
+}
+else
+{
+    <p>[Low]</p>
+}
